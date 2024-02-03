@@ -3,12 +3,13 @@ title: "Great Bear Rainforest Salmon Report - Supplemental Information"
 author: "Coastland"
 date: "2024-02-03"
 output:
+  bookdown::gitbook: default
   html_document:
     df_print: paged
 ---
 
 
-# Introduction
+# index
 
 This webpage hosts summary plots for Rosenberger and Bottoms (_in prep_). Analyses use data from DFO's New Salmon Escapement Database Systems (NUSEDs) up to 2022. 
 
