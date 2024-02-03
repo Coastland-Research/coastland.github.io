@@ -2,7 +2,9 @@
 title: "Great Bear Rainforest Salmon Report - Supplemental Information"
 author: "Coastland"
 date: "2024-02-03"
-output: bookdown::gitbook
+output:
+  html_document:
+    df_print: paged
 ---
 
 
