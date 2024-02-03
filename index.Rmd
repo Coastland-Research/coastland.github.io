@@ -13,6 +13,8 @@ output:
 
 This webpage hosts summary plots for Rosenberger and Bottoms (_in prep_). Analyses use data from DFO's New Salmon Escapement Database Systems (NUSEDs) up to 2022. 
 
+This supplemental information report breaks down trends in salmon escapements by species, system, and conservation unit. Specifics are defined at the head of each section found in the navigation panel. 
+
 # Escapement plots
 
 Escapement plots over time, by species, by Conservation Unit. Colours represent whether or not the stream qualified for analysis in this study. Solid vertical lines denote the establishment of the Great Bear Rainforest Special Protection Area (GBR SPA) in 2007 and dashed vertical lines represent the cutoff for the current generation included in the analyses. 
