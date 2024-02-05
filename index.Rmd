@@ -55,9 +55,12 @@ data <- readRDS("data/nuseds.rds") %>%
   filter(WATERBODY %in% gbr.filt$WATERBODY) %>%
   mutate(year = as.numeric(year))
 
-
+dat <- readRDS('data/dat.rds')
+ratios <- readRDS('data/ratios.rds')
 
 ```
+
+
 
 ## Summary Table
 
@@ -234,13 +237,6 @@ Periods are defined as:
 
 - Comparison metric representing the trend for three generations after the establishment of the GBR SPA
 
-
-```{r Load trend data, include = FALSE}
-
-dat <- readRDS('data/dat.rds')
-ratios <- readRDS('data/ratios.rds')
-
-```
 
 ## All species
 
@@ -522,6 +518,296 @@ ggplot(ratios, aes(x = spp.qual, y = trend.ratio, fill = trend.ratio.period)) +
     scale_fill_brewer(palette = "Set1") + 
     coord_flip() + 
     labs(x = "Conservation Unit by Comparison Period", y = "Trend ratio", fill = "Comparison period") +
+    theme(legend.position = 'top')
+
+```
+
+# Geometric means
+
+This section compares the geometric means of escapements by Conservation Unit on all waterbodies selected for analysis by period.
+
+Periods are defined as: 
+
+`all` : 
+
+- Baseline metric, represents the geomean over all years from 1920 - 2006 (one year before the establishment of the GBR SPA)
+
+`cgen` : 
+
+- Geomean for the current generation (2022 minus one generation length)
+
+`preGBR` :
+
+- Comparison metric representing the geomean for three generations before the establishment of the GBR SPA
+
+`postGBR` :
+
+- Comparison metric representing the geomean for three generations after the establishment of the GBR SPA
+
+## All species
+
+Comparisons across all Conservation Units
+
+```{r Geomeans by all species by period, echo = FALSE, message = FALSE,warning = FALSE, fig.width=8}
+
+ggplot(dat, aes(x = spp.qual, y = (log(gm) + 1), fill = period)) +
+  geom_boxplot(alpha = .85, position = position_dodge2(preserve = "single")) +
+  theme_bw() + 
+  labs(x = "Species", y = "log(Geomean) + 1", fill = "Period") + 
+  scale_fill_brewer(palette = 'Set1') 
+
+```
+
+## Chinook
+```{r Chinook geomeans by period by CU, echo = FALSE, message = FALSE,warning = FALSE, fig.height= 12, fig.width= 8}
+
+ggplot(dat %>% filter(spp.qual == 'CK'),
+       aes(x = period, y = (log(gm) + 1), fill = period)) + 
+  geom_boxplot(alpha = .85, position = position_dodge2(preserve = "single")) +
+  theme_bw() +
+  facet_grid(CU_NAME~.,space="free_y",scale="free_y",
+             labeller = label_wrap_gen(15))+
+  theme(strip.text.y = element_text(angle=0,size=8)) +
+  scale_fill_brewer(palette = "Set1") + 
+  coord_flip() +
+  labs(x = "Conservation Unit by Period", y = "log(Geomean) + 1") +
+  theme(legend.position = 'top', axis.text.x=element_text(angle = 0)) + 
+  scale_fill_brewer(palette = 'Set1')
+
+
+```
+
+## Chum
+```{r Chum geomeans by period by CU, echo = FALSE, message = FALSE,warning = FALSE, fig.height= 12, fig.width= 8}
+
+ggplot(dat %>% filter(spp.qual == 'CM'),
+       aes(x = period, y = (log(gm) + 1), fill = period)) + 
+  geom_boxplot(alpha = .85, position = position_dodge2(preserve = "single")) +
+  theme_bw() +
+  facet_grid(CU_NAME~.,space="free_y",scale="free_y",
+             labeller = label_wrap_gen(15))+
+  theme(strip.text.y = element_text(angle=0,size=8)) +
+  scale_fill_brewer(palette = "Set1") + 
+  coord_flip() +
+  labs(x = "Conservation Unit by Period", y = "log(Geomean) + 1") +
+  theme(legend.position = 'top', axis.text.x=element_text(angle = 0)) + 
+  scale_fill_brewer(palette = 'Set1')
+
+
+```
+
+## Coho
+```{r Coho geomeans by period by CU, echo = FALSE, message = FALSE,warning = FALSE, fig.height= 12, fig.width= 8}
+
+ggplot(dat %>% filter(spp.qual == 'CO'),
+       aes(x = period, y = (log(gm) + 1), fill = period)) + 
+  geom_boxplot(alpha = .85, position = position_dodge2(preserve = "single")) +
+  theme_bw() +
+  facet_grid(CU_NAME~.,space="free_y",scale="free_y",
+             labeller = label_wrap_gen(15))+
+  theme(strip.text.y = element_text(angle=0,size=8)) +
+  scale_fill_brewer(palette = "Set1") + 
+  coord_flip() +
+  labs(x = "Conservation Unit by Period", y = "log(Geomean) + 1") +
+  theme(legend.position = 'top', axis.text.x=element_text(angle = 0)) + 
+  scale_fill_brewer(palette = 'Set1')
+
+
+```
+
+## Pink (Even years)
+```{r Pink (Even years) geomeans by period by CU, echo = FALSE, message = FALSE,warning = FALSE, fig.height= 5, fig.width= 8}
+
+ggplot(dat %>% filter(spp.qual == 'PKE'),
+       aes(x = period, y = (log(gm) + 1), fill = period)) + 
+  geom_boxplot(alpha = .85, position = position_dodge2(preserve = "single")) +
+  theme_bw() +
+  facet_grid(CU_NAME~.,space="free_y",scale="free_y",
+             labeller = label_wrap_gen(15))+
+  theme(strip.text.y = element_text(angle=0,size=8)) +
+  scale_fill_brewer(palette = "Set1") + 
+  coord_flip() +
+  labs(x = "Conservation Unit by Period", y = "log(Geomean) + 1") +
+  theme(legend.position = 'top', axis.text.x=element_text(angle = 0)) + 
+  scale_fill_brewer(palette = 'Set1')
+
+
+```
+
+
+## Pink (Odd years)
+```{r Pink (odd years) geomeans by period by CU, echo = FALSE, message = FALSE,warning = FALSE, fig.height= 8, fig.width= 8}
+
+ggplot(dat %>% filter(spp.qual == 'PKO'),
+       aes(x = period, y = (log(gm) + 1), fill = period)) + 
+  geom_boxplot(alpha = .85, position = position_dodge2(preserve = "single")) +
+  theme_bw() +
+  facet_grid(CU_NAME~.,space="free_y",scale="free_y",
+             labeller = label_wrap_gen(15))+
+  theme(strip.text.y = element_text(angle=0,size=8)) +
+  scale_fill_brewer(palette = "Set1") + 
+  coord_flip() +
+  labs(x = "Conservation Unit by Period", y = "log(Geomean) + 1") +
+  theme(legend.position = 'top', axis.text.x=element_text(angle = 0)) + 
+  scale_fill_brewer(palette = 'Set1')
+
+
+```
+
+## Sockeye
+```{r Sockeye geomeans by period by CU, echo = FALSE, message = FALSE,warning = FALSE, fig.height= 15, fig.width= 8}
+
+ggplot(dat %>% filter(spp.qual == 'SEL'),
+       aes(x = period, y = (log(gm) + 1), fill = period)) + 
+  geom_boxplot(alpha = .85, position = position_dodge2(preserve = "single")) +
+  theme_bw() +
+  facet_grid(CU_NAME~.,space="free_y",scale="free_y",
+             labeller = label_wrap_gen(15))+
+  theme(strip.text.y = element_text(angle=0,size=8)) +
+  scale_fill_brewer(palette = "Set1") + 
+  coord_flip() +
+  labs(x = "Conservation Unit by Period", y = "log(Geomean) + 1") +
+  theme(legend.position = 'top', axis.text.x=element_text(angle = 0)) + 
+  scale_fill_brewer(palette = 'Set1')
+
+
+```
+
+# Geomean Ratios
+
+This section shows how geometric means compare across periods. Comparison periods are defined as:
+
+`geo.cgen.all`:
+
+- Ratio comparing how the geometric mean of the current generation is performing against the baseline trend over all years prior to the GBR SPA.
+
+`geo.cgen.pre`:
+
+- Ratio comparing how the geometric mean of the current generation `cgen` is performing against the trend over three generations prior to the GBR SPA.
+
+`geo.post.all`:
+
+- Ratio comparing how the geometric mean of the three generations following the GBR SPA is performing against the baseline trend over all years prior to the GBR SPA.
+
+`geo.post.pre`:
+
+- Ratio comparing how the geometric mean of the three generations following the GBR SPA is performing against the three generations prior to the GBR SPA.
+
+## All species
+
+Comparisons across all Conservation Units
+
+```{r Geomean ratios all species all CU, echo = FALSE, warning = FALSE, message = FALSE, fig.width=8}
+
+ggplot(ratios, aes(x = spp.qual, y = geo.ratio, fill = geo.ratio.period)) + 
+  geom_boxplot(alpha = .85, position = position_dodge2(preserve = "single")) + 
+  theme_bw() +
+  scale_fill_brewer(palette = "Set1") + 
+  labs(x = "Species", y = "Geomean ratio", 
+       fill = "Comparison period")
+
+```
+
+
+## Chinook
+```{r Chinook geomean ratio by CU, echo = FALSE, message = FALSE, warning=FALSE,, fig.height=8, fig.width=8}
+
+  ggplot(ratios %>% filter(spp.qual == 'CK'), aes(x = geo.ratio.period, y = geo.ratio,
+                                                 fill = geo.ratio.period)) + 
+    geom_boxplot(alpha = .85, position = position_dodge2(preserve = "single")) +
+    theme_bw() +
+    facet_grid(CU_NAME~.,space="free_y",scale="free_y",
+             labeller = label_wrap_gen(15))+
+    theme(strip.text.y = element_text(angle=0,size=8)) +
+    scale_fill_brewer(palette = "Set1") + 
+    coord_flip() + 
+    labs(x = "Conservation Unit by Comparison Period", y = "Geomean ratio", fill = "Comparison period") +
+    theme(legend.position = 'top')
+
+```
+
+
+## Chum
+```{r Chum geomean ratio by CU, echo = FALSE, message = FALSE, warning=FALSE,, fig.height=12, fig.width=8}
+
+  ggplot(ratios %>% filter(spp.qual == 'CM'), aes(x = geo.ratio.period, y = geo.ratio,
+                                                 fill = geo.ratio.period)) + 
+    geom_boxplot(alpha = .85, position = position_dodge2(preserve = "single")) +
+    theme_bw() +
+    facet_grid(CU_NAME~.,space="free_y",scale="free_y",
+             labeller = label_wrap_gen(15))+
+    theme(strip.text.y = element_text(angle=0,size=8)) +
+    scale_fill_brewer(palette = "Set1") + 
+    coord_flip() + 
+    labs(x = "Conservation Unit by Comparison Period", y = "Geomean ratio", fill = "Comparison period") +
+    theme(legend.position = 'top')
+
+```
+
+## Coho
+```{r Coho geomean ratio by CU, echo = FALSE, message = FALSE, warning=FALSE,, fig.height=9, fig.width=8}
+
+  ggplot(ratios %>% filter(spp.qual == 'CO'), aes(x = geo.ratio.period, y = geo.ratio,
+                                                 fill = geo.ratio.period)) + 
+    geom_boxplot(alpha = .85, position = position_dodge2(preserve = "single")) +
+    theme_bw() +
+    facet_grid(CU_NAME~.,space="free_y",scale="free_y",
+             labeller = label_wrap_gen(15))+
+    theme(strip.text.y = element_text(angle=0,size=8)) +
+    scale_fill_brewer(palette = "Set1") + 
+    coord_flip() + 
+    labs(x = "Conservation Unit by Comparison Period", y = "Geomean ratio", fill = "Comparison period") +
+    theme(legend.position = 'top')
+
+```
+
+## Pink (Even years)
+```{r Pink (Even years) geomean ratio by CU, echo = FALSE, message = FALSE, warning=FALSE,, fig.height=5, fig.width=8}
+
+  ggplot(ratios %>% filter(spp.qual == 'PKE'), aes(x = geo.ratio.period, y = geo.ratio,
+                                                 fill = geo.ratio.period)) + 
+    geom_boxplot(alpha = .85, position = position_dodge2(preserve = "single")) +
+    theme_bw() +
+    facet_grid(CU_NAME~.,space="free_y",scale="free_y",
+             labeller = label_wrap_gen(15))+
+    theme(strip.text.y = element_text(angle=0,size=8)) +
+    scale_fill_brewer(palette = "Set1") + 
+    coord_flip() + 
+    labs(x = "Conservation Unit by Comparison Period", y = "Geomean ratio", fill = "Comparison period") +
+    theme(legend.position = 'top')
+
+```
+
+## Pink (Odd years)
+```{r Pink (odd years) geomean ratio by CU, echo = FALSE, message = FALSE, warning=FALSE,, fig.height=7, fig.width=8}
+
+  ggplot(ratios %>% filter(spp.qual == 'PKO'), aes(x = geo.ratio.period, y = geo.ratio,
+                                                 fill = geo.ratio.period)) + 
+    geom_boxplot(alpha = .85, position = position_dodge2(preserve = "single")) +
+    theme_bw() +
+    facet_grid(CU_NAME~.,space="free_y",scale="free_y",
+             labeller = label_wrap_gen(15))+
+    theme(strip.text.y = element_text(angle=0,size=8)) +
+    scale_fill_brewer(palette = "Set1") + 
+    coord_flip() + 
+    labs(x = "Conservation Unit by Comparison Period", y = "Geomean ratio", fill = "Comparison period") +
+    theme(legend.position = 'top')
+
+```
+
+## Sockeye
+```{r Sockeye geomean ratio by CU, echo = FALSE, message = FALSE, warning=FALSE,, fig.height=12, fig.width=8}
+
+  ggplot(ratios %>% filter(spp.qual == 'SEL'), aes(x = geo.ratio.period, y = geo.ratio,
+                                                 fill = geo.ratio.period)) + 
+    geom_boxplot(alpha = .85, position = position_dodge2(preserve = "single")) +
+    theme_bw() +
+    facet_grid(CU_NAME~.,space="free_y",scale="free_y",
+             labeller = label_wrap_gen(15))+
+    theme(strip.text.y = element_text(angle=0,size=8)) +
+    scale_fill_brewer(palette = "Set1") + 
+    coord_flip() + 
+    labs(x = "Conservation Unit by Comparison Period", y = "Geomean ratio", fill = "Comparison period") +
     theme(legend.position = 'top')
 
 ```
