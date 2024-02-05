@@ -20,7 +20,7 @@ This supplemental information report breaks down trends in salmon escapements by
 Escapement plots over time, by species, by Conservation Unit. Colours represent whether or not the stream qualified for analysis in this study. Solid vertical lines denote the establishment of the Great Bear Rainforest Special Protection Area (GBR SPA) in 2007 and dashed vertical lines represent the cutoff for the current generation included in the analyses. 
 
 
-```{r Define custom data for escapement bubble plots, include = FALSE, message = FALSE}
+```{r Load data, include = FALSE, message = FALSE}
 
 library(tidyverse)
 library(kableExtra)
@@ -49,6 +49,8 @@ gbr.filt <- readRDS('data/gbr.filt.rds')
 
 
 link <- read.csv('data/stream id to analyse link.csv')
+
+# Custom data for bubble plots
 data <- readRDS("data/nuseds.rds") %>%
   merge(link) %>%
   merge(periods, by = "SPECIES_QUALIFIED") %>%
@@ -94,14 +96,16 @@ ggplot(plot.data,aes(x=year,y=WATERBODY,size=escapement, color = ANALYSE))+
   geom_point(alpha=.5)+
   facet_grid(CU_NAME~.,space="free_y",scale="free_y",
              labeller = label_wrap_gen(15))+
-  labs(y="Stream",x="Year", subtitle = 'Chinook', color = "Analysed?",
+  labs(y="Stream",x="Year", color = "Analysed?",
        size = "Escapement")+
   theme_bw()+
   geom_vline(aes(xintercept = 2007)) +
   geom_vline(aes(xintercept = g.len), linetype = 2) +
   theme(strip.text.y = element_text(angle=0,size=8),
         axis.text.x=element_text(angle = 0, size=12)) + 
-  scale_color_brewer(palette = 'Set1')
+  scale_color_brewer(palette = 'Set1')+
+    theme(legend.position = 'top')
+
 
 ```
 
@@ -116,14 +120,15 @@ ggplot(plot.data,aes(x=year,y=WATERBODY,size=escapement, color = ANALYSE))+
   geom_point(alpha=.5)+
   facet_grid(CU_NAME~.,space="free_y",scale="free_y",
              labeller = label_wrap_gen(15))+
-  labs(y="Stream",x="Year", subtitle = 'Chum', color = "Analysed?",
+  labs(y="Stream",x="Year", color = "Analysed?",
        size = "Escapement")+
   theme_bw()+
   geom_vline(aes(xintercept = 2007)) +
   geom_vline(aes(xintercept = g.len), linetype = 2) +
   theme(strip.text.y = element_text(angle=0,size=8),
         axis.text.x=element_text(angle = 0, size=12)) + 
-  scale_color_brewer(palette = 'Set1')
+  scale_color_brewer(palette = 'Set1')+
+    theme(legend.position = 'top')
 
 ```
 
@@ -138,14 +143,15 @@ ggplot(plot.data,aes(x=year,y=WATERBODY,size=escapement, color = ANALYSE))+
   geom_point(alpha=.5)+
   facet_grid(CU_NAME~.,space="free_y",scale="free_y",
              labeller = label_wrap_gen(15))+
-  labs(y="Stream",x="Year", subtitle = 'Coho', color = "Analysed?",
+  labs(y="Stream",x="Year", color = "Analysed?",
        size = "Escapement")+
   theme_bw()+
   geom_vline(aes(xintercept = 2007)) +
   geom_vline(aes(xintercept = g.len), linetype = 2) +
   theme(strip.text.y = element_text(angle=0,size=8),
         axis.text.x=element_text(angle = 0, size=12)) + 
-  scale_color_brewer(palette = 'Set1')
+  scale_color_brewer(palette = 'Set1')+
+    theme(legend.position = 'top')
 
 ```
 
@@ -159,14 +165,15 @@ ggplot(plot.data,aes(x=year,y=WATERBODY,size=escapement, color = ANALYSE))+
   geom_point(alpha=.5)+
   facet_grid(CU_NAME~.,space="free_y",scale="free_y",
              labeller = label_wrap_gen(15))+
-  labs(y="Stream",x="Year", subtitle = 'Pink (Even Years)', color = "Analysed?",
+  labs(y="Stream",x="Year", color = "Analysed?",
        size = "Escapement")+
   theme_bw()+
   geom_vline(aes(xintercept = 2007)) +
   geom_vline(aes(xintercept = g.len), linetype = 2) +
   theme(strip.text.y = element_text(angle=0,size=8),
         axis.text.x=element_text(angle = 0, size=12)) + 
-  scale_color_brewer(palette = 'Set1')
+  scale_color_brewer(palette = 'Set1')+
+    theme(legend.position = 'top')
 
 ```
 
@@ -181,14 +188,15 @@ ggplot(plot.data,aes(x=year,y=WATERBODY,size=escapement, color = ANALYSE))+
   geom_point(alpha=.5)+
   facet_grid(CU_NAME~.,space="free_y",scale="free_y",
              labeller = label_wrap_gen(15))+
-  labs(y="Stream",x="Year", subtitle = 'Pink (Odd Years)', color = "Analysed?",
+  labs(y="Stream",x="Year", color = "Analysed?",
        size = "Escapement")+
   theme_bw()+
   geom_vline(aes(xintercept = 2007)) +
   geom_vline(aes(xintercept = g.len), linetype = 2) +
   theme(strip.text.y = element_text(angle=0,size=8),
         axis.text.x=element_text(angle = 0, size=12)) + 
-  scale_color_brewer(palette = 'Set1')
+  scale_color_brewer(palette = 'Set1')+
+    theme(legend.position = 'top')
 
 ```
 
@@ -204,14 +212,15 @@ ggplot(plot.data,aes(x=year,y=WATERBODY,size=escapement, color = ANALYSE))+
   geom_point(alpha=.5)+
   facet_grid(CU_NAME~.,space="free_y",scale="free_y",
              labeller = label_wrap_gen(15))+
-  labs(y="Stream",x="Year", subtitle = 'Sockeye (Lake)', color = "Analysed?",
+  labs(y="Stream",x="Year", color = "Analysed?",
        size = "Escapement")+
   theme_bw()+
   geom_vline(aes(xintercept = 2007)) +
   geom_vline(aes(xintercept = g.len), linetype = 2) +
   theme(strip.text.y = element_text(angle=0,size=8),
         axis.text.x=element_text(angle = 0, size=12)) + 
-  scale_color_brewer(palette = 'Set1')
+  scale_color_brewer(palette = 'Set1')+
+    theme(legend.position = 'top')
 
 ```
 
@@ -550,10 +559,10 @@ Comparisons across all Conservation Units
 
 ```{r Geomeans by all species by period, echo = FALSE, message = FALSE,warning = FALSE, fig.width=8}
 
-ggplot(dat, aes(x = spp.qual, y = (log(gm) + 1), fill = period)) +
+ggplot(dat, aes(x = spp.qual, y = (log(gm)), fill = period)) +
   geom_boxplot(alpha = .85, position = position_dodge2(preserve = "single")) +
   theme_bw() + 
-  labs(x = "Species", y = "log(Geomean) + 1", fill = "Period") + 
+  labs(x = "Species", y = "log(geomean)", fill = "Period") + 
   scale_fill_brewer(palette = 'Set1') 
 
 ```
@@ -562,7 +571,7 @@ ggplot(dat, aes(x = spp.qual, y = (log(gm) + 1), fill = period)) +
 ```{r Chinook geomeans by period by CU, echo = FALSE, message = FALSE,warning = FALSE, fig.height= 12, fig.width= 8}
 
 ggplot(dat %>% filter(spp.qual == 'CK'),
-       aes(x = period, y = (log(gm) + 1), fill = period)) + 
+       aes(x = period, y = (log(gm)), fill = period)) + 
   geom_boxplot(alpha = .85, position = position_dodge2(preserve = "single")) +
   theme_bw() +
   facet_grid(CU_NAME~.,space="free_y",scale="free_y",
@@ -570,7 +579,7 @@ ggplot(dat %>% filter(spp.qual == 'CK'),
   theme(strip.text.y = element_text(angle=0,size=8)) +
   scale_fill_brewer(palette = "Set1") + 
   coord_flip() +
-  labs(x = "Conservation Unit by Period", y = "log(Geomean) + 1") +
+  labs(x = "Conservation Unit by Period", y = "log(geomean)") +
   theme(legend.position = 'top', axis.text.x=element_text(angle = 0)) + 
   scale_fill_brewer(palette = 'Set1')
 
@@ -581,7 +590,7 @@ ggplot(dat %>% filter(spp.qual == 'CK'),
 ```{r Chum geomeans by period by CU, echo = FALSE, message = FALSE,warning = FALSE, fig.height= 12, fig.width= 8}
 
 ggplot(dat %>% filter(spp.qual == 'CM'),
-       aes(x = period, y = (log(gm) + 1), fill = period)) + 
+       aes(x = period, y = (log(gm)), fill = period)) + 
   geom_boxplot(alpha = .85, position = position_dodge2(preserve = "single")) +
   theme_bw() +
   facet_grid(CU_NAME~.,space="free_y",scale="free_y",
@@ -589,7 +598,7 @@ ggplot(dat %>% filter(spp.qual == 'CM'),
   theme(strip.text.y = element_text(angle=0,size=8)) +
   scale_fill_brewer(palette = "Set1") + 
   coord_flip() +
-  labs(x = "Conservation Unit by Period", y = "log(Geomean) + 1") +
+  labs(x = "Conservation Unit by Period", y = "log(geomean)") +
   theme(legend.position = 'top', axis.text.x=element_text(angle = 0)) + 
   scale_fill_brewer(palette = 'Set1')
 
@@ -600,7 +609,7 @@ ggplot(dat %>% filter(spp.qual == 'CM'),
 ```{r Coho geomeans by period by CU, echo = FALSE, message = FALSE,warning = FALSE, fig.height= 12, fig.width= 8}
 
 ggplot(dat %>% filter(spp.qual == 'CO'),
-       aes(x = period, y = (log(gm) + 1), fill = period)) + 
+       aes(x = period, y = (log(gm)), fill = period)) + 
   geom_boxplot(alpha = .85, position = position_dodge2(preserve = "single")) +
   theme_bw() +
   facet_grid(CU_NAME~.,space="free_y",scale="free_y",
@@ -608,7 +617,7 @@ ggplot(dat %>% filter(spp.qual == 'CO'),
   theme(strip.text.y = element_text(angle=0,size=8)) +
   scale_fill_brewer(palette = "Set1") + 
   coord_flip() +
-  labs(x = "Conservation Unit by Period", y = "log(Geomean) + 1") +
+  labs(x = "Conservation Unit by Period", y = "log(geomean)") +
   theme(legend.position = 'top', axis.text.x=element_text(angle = 0)) + 
   scale_fill_brewer(palette = 'Set1')
 
@@ -619,7 +628,7 @@ ggplot(dat %>% filter(spp.qual == 'CO'),
 ```{r Pink (Even years) geomeans by period by CU, echo = FALSE, message = FALSE,warning = FALSE, fig.height= 5, fig.width= 8}
 
 ggplot(dat %>% filter(spp.qual == 'PKE'),
-       aes(x = period, y = (log(gm) + 1), fill = period)) + 
+       aes(x = period, y = (log(gm)), fill = period)) + 
   geom_boxplot(alpha = .85, position = position_dodge2(preserve = "single")) +
   theme_bw() +
   facet_grid(CU_NAME~.,space="free_y",scale="free_y",
@@ -627,7 +636,7 @@ ggplot(dat %>% filter(spp.qual == 'PKE'),
   theme(strip.text.y = element_text(angle=0,size=8)) +
   scale_fill_brewer(palette = "Set1") + 
   coord_flip() +
-  labs(x = "Conservation Unit by Period", y = "log(Geomean) + 1") +
+  labs(x = "Conservation Unit by Period", y = "log(geomean)") +
   theme(legend.position = 'top', axis.text.x=element_text(angle = 0)) + 
   scale_fill_brewer(palette = 'Set1')
 
@@ -639,7 +648,7 @@ ggplot(dat %>% filter(spp.qual == 'PKE'),
 ```{r Pink (odd years) geomeans by period by CU, echo = FALSE, message = FALSE,warning = FALSE, fig.height= 8, fig.width= 8}
 
 ggplot(dat %>% filter(spp.qual == 'PKO'),
-       aes(x = period, y = (log(gm) + 1), fill = period)) + 
+       aes(x = period, y = (log(gm)), fill = period)) + 
   geom_boxplot(alpha = .85, position = position_dodge2(preserve = "single")) +
   theme_bw() +
   facet_grid(CU_NAME~.,space="free_y",scale="free_y",
@@ -647,7 +656,7 @@ ggplot(dat %>% filter(spp.qual == 'PKO'),
   theme(strip.text.y = element_text(angle=0,size=8)) +
   scale_fill_brewer(palette = "Set1") + 
   coord_flip() +
-  labs(x = "Conservation Unit by Period", y = "log(Geomean) + 1") +
+  labs(x = "Conservation Unit by Period", y = "log(geomean)") +
   theme(legend.position = 'top', axis.text.x=element_text(angle = 0)) + 
   scale_fill_brewer(palette = 'Set1')
 
@@ -658,7 +667,7 @@ ggplot(dat %>% filter(spp.qual == 'PKO'),
 ```{r Sockeye geomeans by period by CU, echo = FALSE, message = FALSE,warning = FALSE, fig.height= 15, fig.width= 8}
 
 ggplot(dat %>% filter(spp.qual == 'SEL'),
-       aes(x = period, y = (log(gm) + 1), fill = period)) + 
+       aes(x = period, y = (log(gm)), fill = period)) + 
   geom_boxplot(alpha = .85, position = position_dodge2(preserve = "single")) +
   theme_bw() +
   facet_grid(CU_NAME~.,space="free_y",scale="free_y",
@@ -666,7 +675,7 @@ ggplot(dat %>% filter(spp.qual == 'SEL'),
   theme(strip.text.y = element_text(angle=0,size=8)) +
   scale_fill_brewer(palette = "Set1") + 
   coord_flip() +
-  labs(x = "Conservation Unit by Period", y = "log(Geomean) + 1") +
+  labs(x = "Conservation Unit by Period", y = "log(geomean)") +
   theme(legend.position = 'top', axis.text.x=element_text(angle = 0)) + 
   scale_fill_brewer(palette = 'Set1')
 
@@ -699,12 +708,13 @@ Comparisons across all Conservation Units
 
 ```{r Geomean ratios all species all CU, echo = FALSE, warning = FALSE, message = FALSE, fig.width=8}
 
-ggplot(ratios, aes(x = spp.qual, y = geo.ratio, fill = geo.ratio.period)) + 
+ggplot(ratios, aes(x = spp.qual, y = log(geo.ratio), fill = geo.ratio.period)) + 
   geom_boxplot(alpha = .85, position = position_dodge2(preserve = "single")) + 
   theme_bw() +
   scale_fill_brewer(palette = "Set1") + 
   labs(x = "Species", y = "Geomean ratio", 
-       fill = "Comparison period")
+       fill = "Comparison period") + 
+  geom_hline(yintercept = 0)
 
 ```
 
@@ -712,7 +722,7 @@ ggplot(ratios, aes(x = spp.qual, y = geo.ratio, fill = geo.ratio.period)) +
 ## Chinook
 ```{r Chinook geomean ratio by CU, echo = FALSE, message = FALSE, warning=FALSE,, fig.height=8, fig.width=8}
 
-  ggplot(ratios %>% filter(spp.qual == 'CK'), aes(x = geo.ratio.period, y = geo.ratio,
+  ggplot(ratios %>% filter(spp.qual == 'CK'), aes(x = geo.ratio.period, y = log(geo.ratio),
                                                  fill = geo.ratio.period)) + 
     geom_boxplot(alpha = .85, position = position_dodge2(preserve = "single")) +
     theme_bw() +
@@ -721,6 +731,7 @@ ggplot(ratios, aes(x = spp.qual, y = geo.ratio, fill = geo.ratio.period)) +
     theme(strip.text.y = element_text(angle=0,size=8)) +
     scale_fill_brewer(palette = "Set1") + 
     coord_flip() + 
+    geom_hline(yintercept = 0) +
     labs(x = "Conservation Unit by Comparison Period", y = "Geomean ratio", fill = "Comparison period") +
     theme(legend.position = 'top')
 
@@ -730,14 +741,14 @@ ggplot(ratios, aes(x = spp.qual, y = geo.ratio, fill = geo.ratio.period)) +
 ## Chum
 ```{r Chum geomean ratio by CU, echo = FALSE, message = FALSE, warning=FALSE,, fig.height=12, fig.width=8}
 
-  ggplot(ratios %>% filter(spp.qual == 'CM'), aes(x = geo.ratio.period, y = geo.ratio,
-                                                 fill = geo.ratio.period)) + 
+  ggplot(ratios %>% filter(spp.qual == 'CM'), aes(x = geo.ratio.period, y = log(geo.ratio), fill = geo.ratio.period)) + 
     geom_boxplot(alpha = .85, position = position_dodge2(preserve = "single")) +
     theme_bw() +
     facet_grid(CU_NAME~.,space="free_y",scale="free_y",
              labeller = label_wrap_gen(15))+
     theme(strip.text.y = element_text(angle=0,size=8)) +
     scale_fill_brewer(palette = "Set1") + 
+    geom_hline(yintercept = 0) +
     coord_flip() + 
     labs(x = "Conservation Unit by Comparison Period", y = "Geomean ratio", fill = "Comparison period") +
     theme(legend.position = 'top')
@@ -747,8 +758,7 @@ ggplot(ratios, aes(x = spp.qual, y = geo.ratio, fill = geo.ratio.period)) +
 ## Coho
 ```{r Coho geomean ratio by CU, echo = FALSE, message = FALSE, warning=FALSE,, fig.height=9, fig.width=8}
 
-  ggplot(ratios %>% filter(spp.qual == 'CO'), aes(x = geo.ratio.period, y = geo.ratio,
-                                                 fill = geo.ratio.period)) + 
+  ggplot(ratios %>% filter(spp.qual == 'CO'), aes(x = geo.ratio.period, y = log(geo.ratio), fill = geo.ratio.period)) + 
     geom_boxplot(alpha = .85, position = position_dodge2(preserve = "single")) +
     theme_bw() +
     facet_grid(CU_NAME~.,space="free_y",scale="free_y",
@@ -756,6 +766,7 @@ ggplot(ratios, aes(x = spp.qual, y = geo.ratio, fill = geo.ratio.period)) +
     theme(strip.text.y = element_text(angle=0,size=8)) +
     scale_fill_brewer(palette = "Set1") + 
     coord_flip() + 
+    geom_hline(yintercept = 0) +
     labs(x = "Conservation Unit by Comparison Period", y = "Geomean ratio", fill = "Comparison period") +
     theme(legend.position = 'top')
 
@@ -764,7 +775,7 @@ ggplot(ratios, aes(x = spp.qual, y = geo.ratio, fill = geo.ratio.period)) +
 ## Pink (Even years)
 ```{r Pink (Even years) geomean ratio by CU, echo = FALSE, message = FALSE, warning=FALSE,, fig.height=5, fig.width=8}
 
-  ggplot(ratios %>% filter(spp.qual == 'PKE'), aes(x = geo.ratio.period, y = geo.ratio,
+  ggplot(ratios %>% filter(spp.qual == 'PKE'), aes(x = geo.ratio.period, y = log(geo.ratio),
                                                  fill = geo.ratio.period)) + 
     geom_boxplot(alpha = .85, position = position_dodge2(preserve = "single")) +
     theme_bw() +
@@ -773,6 +784,7 @@ ggplot(ratios, aes(x = spp.qual, y = geo.ratio, fill = geo.ratio.period)) +
     theme(strip.text.y = element_text(angle=0,size=8)) +
     scale_fill_brewer(palette = "Set1") + 
     coord_flip() + 
+    geom_hline(yintercept = 0) +
     labs(x = "Conservation Unit by Comparison Period", y = "Geomean ratio", fill = "Comparison period") +
     theme(legend.position = 'top')
 
@@ -781,8 +793,7 @@ ggplot(ratios, aes(x = spp.qual, y = geo.ratio, fill = geo.ratio.period)) +
 ## Pink (Odd years)
 ```{r Pink (odd years) geomean ratio by CU, echo = FALSE, message = FALSE, warning=FALSE,, fig.height=7, fig.width=8}
 
-  ggplot(ratios %>% filter(spp.qual == 'PKO'), aes(x = geo.ratio.period, y = geo.ratio,
-                                                 fill = geo.ratio.period)) + 
+  ggplot(ratios %>% filter(spp.qual == 'PKO'), aes(x = geo.ratio.period, y = log(geo.ratio), fill = geo.ratio.period)) + 
     geom_boxplot(alpha = .85, position = position_dodge2(preserve = "single")) +
     theme_bw() +
     facet_grid(CU_NAME~.,space="free_y",scale="free_y",
@@ -790,6 +801,7 @@ ggplot(ratios, aes(x = spp.qual, y = geo.ratio, fill = geo.ratio.period)) +
     theme(strip.text.y = element_text(angle=0,size=8)) +
     scale_fill_brewer(palette = "Set1") + 
     coord_flip() + 
+    geom_hline(yintercept = 0) +
     labs(x = "Conservation Unit by Comparison Period", y = "Geomean ratio", fill = "Comparison period") +
     theme(legend.position = 'top')
 
@@ -798,8 +810,7 @@ ggplot(ratios, aes(x = spp.qual, y = geo.ratio, fill = geo.ratio.period)) +
 ## Sockeye
 ```{r Sockeye geomean ratio by CU, echo = FALSE, message = FALSE, warning=FALSE,, fig.height=12, fig.width=8}
 
-  ggplot(ratios %>% filter(spp.qual == 'SEL'), aes(x = geo.ratio.period, y = geo.ratio,
-                                                 fill = geo.ratio.period)) + 
+  ggplot(ratios %>% filter(spp.qual == 'SEL'), aes(x = geo.ratio.period, y = log(geo.ratio), fill = geo.ratio.period)) + 
     geom_boxplot(alpha = .85, position = position_dodge2(preserve = "single")) +
     theme_bw() +
     facet_grid(CU_NAME~.,space="free_y",scale="free_y",
@@ -807,6 +818,7 @@ ggplot(ratios, aes(x = spp.qual, y = geo.ratio, fill = geo.ratio.period)) +
     theme(strip.text.y = element_text(angle=0,size=8)) +
     scale_fill_brewer(palette = "Set1") + 
     coord_flip() + 
+    geom_hline(yintercept = 0) +
     labs(x = "Conservation Unit by Comparison Period", y = "Geomean ratio", fill = "Comparison period") +
     theme(legend.position = 'top')
 
