@@ -823,3 +823,63 @@ ggplot(ratios, aes(x = spp.qual, y = log(geo.ratio), fill = geo.ratio.period)) +
     theme(legend.position = 'top')
 
 ```
+
+# Model predictions
+
+```{r Trend ratio by CU cgen v all, echo = FALSE, message = FALSE, warning=FALSE,, fig.height=12, fig.width=8}
+
+preds <- readRDS('data/glmm.preds.rds')
+
+ggplot(preds, aes(x = reorder(CU_NAME, pred.cgen.all), y = pred.cgen.all, color = spp.qual)) +
+  geom_hline(yintercept = 0) +
+  geom_point() + 
+  geom_errorbar(aes(ymin = pred.cgen.all.low, ymax = pred.cgen.all.upp)) +
+  theme_bw() +
+  coord_flip() + 
+  scale_color_manual(values = c("#d53e4f", "#fc8d59", "#fee08b", "forestgreen", '#93d994', '#3288bd')) +
+  labs(x = "Conservation Unit", y = "Trend ratio", 
+       subtitle = "Current generation vs. all years pre-GBR")
+
+```
+
+```{r Trend ratio by CU cgen v preGBR, echo = FALSE, message = FALSE, warning=FALSE,, fig.height=12, fig.width=8}
+
+ggplot(preds, aes(x = reorder(CU_NAME, pred.cgen.pre), y = pred.cgen.pre, color = spp.qual)) +
+  geom_hline(yintercept = 0) +
+  geom_point() + 
+  geom_errorbar(aes(ymin = pred.cgen.pre.low, ymax = pred.cgen.pre.upp)) +
+  theme_bw() +
+  coord_flip() + 
+  scale_color_manual(values = c("#d53e4f", "#fc8d59", "#fee08b", "forestgreen", '#93d994', '#3288bd'))+
+  labs(x = "Conservation Unit", y = "Trend ratio", 
+       subtitle = "Current generation vs. 3 generations pre-GBR")
+
+```
+
+```{r Trend ratio by CU preGBR v all, echo = FALSE, message = FALSE, warning=FALSE,, fig.height=12, fig.width=8}
+
+ggplot(preds, aes(x = reorder(CU_NAME, pred.post.all), y = pred.post.all, color = spp.qual)) +
+  geom_hline(yintercept = 0) +
+  geom_point() + 
+  geom_errorbar(aes(ymin = pred.post.all.low, ymax = pred.post.all.upp)) +
+  theme_bw() +
+  coord_flip() + 
+  scale_color_manual(values = c("#d53e4f", "#fc8d59", "#fee08b", "forestgreen", '#93d994', '#3288bd'))+
+  labs(x = "Conservation Unit", y = "Trend ratio", 
+       subtitle = "3 Generations post-GBR vs. all years pre-GBR")
+
+```
+
+```{r Trend ratio by CU preGBR v postGBR, echo = FALSE, message = FALSE, warning=FALSE,, fig.height=12, fig.width=8}
+
+ggplot(preds, aes(x = reorder(CU_NAME, pred.post.pre), y = pred.post.pre, color = spp.qual)) +
+  geom_hline(yintercept = 0) +
+  geom_point() + 
+  geom_errorbar(aes(ymin = pred.post.pre.low, ymax = pred.post.pre.upp)) +
+  theme_bw() +
+  coord_flip() + 
+  scale_color_manual(values = c("#d53e4f", "#fc8d59", "#fee08b", "forestgreen", '#93d994', '#3288bd'))+
+  labs(x = "Conservation Unit", y = "Trend ratio", 
+       subtitle = "3 Generations post-GBR vs. 3 Generations pre-GBR")
+
+```
